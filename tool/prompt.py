@@ -1,16 +1,78 @@
 from langchain.prompts import ChatPromptTemplate
 
-# 최종 답변을 생성하는 과정에서 사용하는 프롬프트
-def response_prompt_selector(prompt_num:int):
+def response_prompt_selector(prompt_num: int):
+    """
+    프롬프트 번호에 따라 적절한 응답 생성 프롬프트를 선택하여 반환합니다.
+    - 0: Chain of Thought (CoT) Prompt
+    - 1: Zero-Shot Chain of Thought (Zero-Shot CoT) Prompt
+    - 2: General Instruction-Based Prompt
+    """
+    
     if prompt_num == 0:
+        system_prompt = """You are an expert Marketing Manager specializing in online reputation management. Your task is to craft a thoughtful and effective response to a customer review.
+
+To ensure the highest quality response, you must follow this step-by-step reasoning process before writing the final reply.
+
+**## Step-by-Step Analysis ##**
+
+**Step 1: Analyze Customer Sentiment.**
+- Based on the provided 'Customer Sentiment', briefly explain how the overall tone of your response (e.g., apologetic, grateful, neutral) should be shaped.
+
+**Step 2: Analyze Customer Emotion.**
+- Based on the 'Customer Emotion', identify the core feeling the customer is expressing (e.g., frustration, delight, disappointment). How will you validate this specific emotion in your response?
+
+**Step 3: Analyze Customer Intention.**
+- Based on the 'Customer Intention', determine what the customer hopes to achieve with their review (e.g., receive a solution, warn others, praise the service). What specific action or information must your response contain to address this intention?
+
+**Step 4: Synthesize and Formulate a Strategy.**
+- Based on your analysis in steps 1-3, outline a brief strategy for the final response. Mention the key points you will include.
+
+**## Final Response Generation ##**
+
+After completing the analysis above, write the final, polished response to the customer. This response should directly reflect the insights from your step-by-step analysis.
+
+**Final Response to Customer:**
+[Your final, well-crafted response goes here]"""
+
+    elif prompt_num == 1:
+        system_prompt = """You are a professional Marketing Manager responsible for handling customer feedback. Your goal is to write a personalized and appropriate response to the following customer review, taking into account the provided analysis of their sentiment, emotion, and intention.
+
+Carefully review all the information provided below.
+
+Your final output should be only the direct response to the customer.
+
+Let's think step by step."""
+        
+    else:
+        system_prompt = """As a customer-centric Marketing Manager, your task is to write a public response to a customer review.
+
+**## Guiding Principles for Your Response: ##**
+1.  **Acknowledge and Validate:** Your response must acknowledge the customer's experience and validate their feelings, using the provided 'Customer Sentiment' and 'Customer Emotion' as a guide.
+2.  **Be Specific:** Directly reference key points from the original 'Review' to show you have read it carefully.
+3.  **Address the Intention:** Ensure your reply directly addresses the 'Customer Intention'. If they are seeking a solution, offer one. If they are giving praise, show gratitude.
+4.  **Maintain a Professional Tone:** The tone should be professional, empathetic, and aligned with our brand's voice.
+5.  **Provide a Clear Call to Action (if necessary):** If follow-up is needed, provide clear instructions for the customer (e.g., "Please contact us at [email/phone]").
+
+Your final output should be ONLY the complete, ready-to-publish response to the customer. Do not include any of your own analysis or notes."""
         prompt = ChatPromptTemplate.from_messages(
             [
-                ("system", """As a marketing manager managing online customer reviews, write a response to the following 'Review'.\n\nWhen composing your reply, it is important to keep 'Customer Sentiment' in mind.\nWhen composing your reply, it is important to keep 'Customer Emotion' in mind.\nWhen composing your reply, it is important to keep 'Customer Intention' in mind.\n\nYour answer must follow this 'Format' below.\nFormat:\n(Responding to Customer Sentiment) + "(The sentence in the customer review that is the reason for generating that response.)"\n(Responding to Customer Emotion) + "(The sentence in the customer review that is the reason for generating that response.)"\n(Responding to Customer Intention) + "(The sentence in the customer review that is the reason for generating that response.)"\n\nThe Final Generated Response to that Customer Review = Your Final Response"""),
-                ("human", "Customer Sentiment:\n{customer_sentiment}\n\nCustomer Emotion:\n{customer_emotion}\n\nCustomer Intention:\n{customer_intention}\n\nReview:\n{review}")
+                ("system", system_prompt),
+                ("human", "Review:\n{review}")
             ]
         )
+        
+        return prompt
+    
+    # 선택된 시스템 프롬프트와 사용자 입력을 바탕으로 ChatPromptTemplate 객체 생성
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", system_prompt),
+            ("human", "Customer Sentiment:\n{customer_sentiment}\n\nCustomer Emotion:\n{customer_emotion}\n\nCustomer Intention:\n{customer_intention}\n\nReview:\n{review}")
+        ]
+    )
     
     return prompt
+
 
 # 감성, 감정, 의도를 분석할 때 사용하는 프롬프트 (추후 디테일하게 수정할 필요성 있음)
 def analysis_prompt_selector(prompt_num:int):

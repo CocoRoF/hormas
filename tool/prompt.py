@@ -1,13 +1,6 @@
 from langchain.prompts import ChatPromptTemplate
 
 def response_prompt_selector(prompt_num: int):
-    """
-    프롬프트 번호에 따라 적절한 응답 생성 프롬프트를 선택하여 반환합니다.
-    - 0: Chain of Thought (CoT) Prompt
-    - 1: Zero-Shot Chain of Thought (Zero-Shot CoT) Prompt
-    - 2: General Instruction-Based Prompt
-    """
-    
     if prompt_num == 0:
         system_prompt = """You are an expert Marketing Manager specializing in online reputation management. Your task is to craft a thoughtful and effective response to a customer review.
 
@@ -63,7 +56,6 @@ Your final output should be ONLY the complete, ready-to-publish response to the 
         
         return prompt
     
-    # 선택된 시스템 프롬프트와 사용자 입력을 바탕으로 ChatPromptTemplate 객체 생성
     prompt = ChatPromptTemplate.from_messages(
         [
             ("system", system_prompt),
@@ -74,7 +66,6 @@ Your final output should be ONLY the complete, ready-to-publish response to the 
     return prompt
 
 
-# 감성, 감정, 의도를 분석할 때 사용하는 프롬프트 (추후 디테일하게 수정할 필요성 있음)
 def analysis_prompt_selector(prompt_num:int):
     if prompt_num == 0:
         function_prompt = [
@@ -106,7 +97,6 @@ def analysis_prompt_selector(prompt_num:int):
     
     return function_prompt
 
-# 최종 답변 parser에 관한 프롬프트
 def Response_output_selector(prompt_num:int):
     if prompt_num == 0:
         function_prompt = [

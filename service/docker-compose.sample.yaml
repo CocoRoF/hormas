@@ -1,0 +1,25 @@
+services:
+  web:
+    container_name: web
+    env_file: ./backend/web/.env
+    build: ./backend/web/.
+    volumes:
+      - ./web_entrypoint.sh:/entrypoint.sh
+    command: [ "bash", "/entrypoint.sh" ]
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    restart: always
+    ports:
+      - 8000:8000
+  web-front:
+    container_name: web-front
+    build: ./frontend/web-front/.
+    volumes:
+      - ./web_front_entrypoint.sh:/entrypoint.sh
+    command: [ "sh", "-c", "bash /entrypoint.sh" ]
+    restart: always
+    ports:
+      - 3000:3000
+

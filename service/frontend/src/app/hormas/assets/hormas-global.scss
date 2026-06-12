@@ -1,0 +1,116 @@
+// 파일 위치: src/app/hormas/assets/hormas-global.scss
+// 이 파일을 새로 생성하고 아래 코드를 붙여넣으세요.
+
+/* ================================== */
+/* 1. Hormas 다크 테마 변수 정의        */
+/* ================================== */
+:root {
+    --hormas-bg: #121212;
+    --hormas-surface: #1e1e1e;
+    --hormas-border: #333;
+    --hormas-primary: #bb86fc;
+    --hormas-text-primary: #e0e0e0;
+    --hormas-text-secondary: #a0a0a0;
+    --hormas-sidebar-hover-bg: rgba(255, 255, 255, 0.08);
+    --hormas-sidebar-width-collapsed: 65px;
+    --hormas-sidebar-width-expanded: 230px;
+}
+
+/* ================================== */
+/* 2. 레이아웃 기본 스타일             */
+/* ================================== */
+.hormas-layout {
+    position: relative;
+    padding-left: var(--hormas-sidebar-width-collapsed);
+    background-color: var(--hormas-bg);
+    color: var(--hormas-text-primary);
+    min-height: 100vh;
+    transition: padding-left 0.25s ease-in-out;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.hormas-layout.sidebar-expanded {
+    padding-left: var(--hormas-sidebar-width-expanded);
+}
+
+.hormas-main-content {
+    width: 100%;
+    padding: 2.5rem;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ================================== */
+/* 3. 사이드바 스타일                 */
+/* ================================== */
+.main-menu {
+    background: var(--hormas-surface);
+    border-right: 1px solid var(--hormas-border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 60px;
+    overflow: hidden;
+    transition: width 0.2s ease-in-out;
+    z-index: 1000;
+    flex-shrink: 0;
+
+    &:hover {
+        width: 220px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        width: 220px;
+
+        a {
+            display: flex;
+            align-items: center;
+            height: 60px;
+            color: var(--hormas-text-secondary);
+            text-decoration: none;
+            transition: background-color 0.2s ease, color 0.2s ease;
+
+            &:hover {
+                background-color: var(--hormas-sidebar-hover);
+                color: var(--hormas-text-primary);
+            }
+        }
+    }
+
+    .fa {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        flex-shrink: 0;
+        font-size: 20px;
+    }
+
+    .nav-text {
+        padding-left: 1rem;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    &:hover .nav-text {
+        opacity: 1;
+    }
+
+    .logout {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+}

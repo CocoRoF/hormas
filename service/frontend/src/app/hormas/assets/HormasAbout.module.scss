@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+    gap: 3rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 0;
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+    }
+}
+
+.contentSection {
+    flex: 1.5;
+    /* 텍스트 영역이 이미지 영역보다 약간 더 넓게 */
+    color: var(--hormas-text-primary);
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 800;
+    padding-bottom: 1rem;
+    border-bottom: 4px solid var(--hormas-primary);
+    margin-bottom: 2rem;
+    color: white;
+    /* 제목은 더 밝게 */
+}
+
+.paragraph {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--hormas-text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.borderBottom {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed var(--hormas-border);
+}
+
+.imageSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.imageBox {
+    text-align: center;
+
+    h4 {
+        margin-top: 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--hormas-text-secondary);
+    }
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    /* 이미지 비율 고정 */
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--hormas-border);
+}

@@ -1,0 +1,90 @@
+/* 이 파일을 새로 생성하고 아래 코드를 붙여넣으세요. */
+
+.container {
+    display: flex;
+    gap: 3rem;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2rem 0;
+
+    @media (max-width: 1024px) {
+        flex-direction: column-reverse;
+        /* 모바일에서는 이미지를 위로 */
+    }
+}
+
+.contentSection {
+    flex: 1.5;
+    color: var(--hormas-text-primary);
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 800;
+    padding-bottom: 1rem;
+    border-bottom: 4px solid var(--hormas-primary);
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.paragraph {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--hormas-text-secondary);
+    margin-bottom: 2.5rem;
+}
+
+.techList {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.techItem {
+    background-color: var(--hormas-surface);
+    padding: 1.5rem;
+    border-left: 4px solid var(--hormas-primary);
+    border-radius: 0 8px 8px 0;
+
+    h3 {
+        margin: 0 0 0.5rem 0;
+        font-size: 1.25rem;
+        color: var(--hormas-text-primary);
+    }
+
+    p {
+        margin: 0;
+        line-height: 1.6;
+        color: var(--hormas-text-secondary);
+    }
+}
+
+
+.imageSection {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.imageBox {
+    text-align: center;
+
+    h4 {
+        margin-top: 1rem;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--hormas-text-secondary);
+    }
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--hormas-border);
+}
